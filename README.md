@@ -46,3 +46,7 @@ Kendi FASTA dizilerinizi denemek için notebook’un son bölümündeki `LOCAL_F
 ## Sonraki adımlar
 
 Bu prototipi bilimsel bir analize dönüştürmek istenirse önce örnek kökeni ve veri erişim numaraları belgelenmeli; hizalama ölçütü gerçek yüzde özdeşlik olarak hesaplanmalı; adayların biyolojik anotasyonları kaynaklarla doğrulanmalı; ara ve nihai çıktılar yeniden üretilebilir biçimde sunulmalıdır.
+
+## Katkıda Bulunanlar
+
+- **Cem Boyraz** — Projenin geliştirilme sürecindeki katkıları ve desteği için teşekkür ederim.
