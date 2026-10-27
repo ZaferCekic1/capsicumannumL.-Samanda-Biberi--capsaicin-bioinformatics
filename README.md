@@ -49,4 +49,4 @@ Bu prototipi bilimsel bir analize dönüştürmek istenirse önce örnek kökeni
 
 ## Katkıda Bulunanlar
 
-- **Cem Boyraz** — Projenin geliştirilme sürecindeki katkıları ve desteği için teşekkür ederim.
+- **[@Cem Boyraz](https://github.com/cemboyraz13)** — Projenin geliştirilme sürecindeki katkıları ve desteği için teşekkür ederim.
