@@ -1,0 +1,19 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Büyük ham genom dosyaları
+biber_genomu/
+*.zip
+*genomic.fna
+*genomic.gff
+*cds_from_genomic.fna
+
+# OS
+.DS_Store
+Thumbs.db
