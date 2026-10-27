@@ -1,6 +1,6 @@
 #  *Capsicum annuum* ve kapsaisin biyosentezi: keşif amaçlı biyoinformatik denemesi
 
-> **Çalışmanın niteliği:** Bu depo bir bilimsel araştırma yayını, doğrulanmış analiz veya Samandağ biberine ait deneysel/genomik bulgu sunmaz. Biyoinformatik araçlarını denemek ve olası bir iş akışını öğrenmek için hazırlanmış bir prototiptir. Notebook çıktıları yeniden üretilip doğrulanmadıkça sonuç olarak değerlendirilmemelidir.
+> **Çalışmanın niteliği:** Bu depo bir bilimsel araştırma yayını, doğrulanmış analiz veya Samandağ biberine ait deneysel/genomik bulgu sunmaz. Biyoinformatik araçlarını denemek ve olası bir iş akışını öğrenmek için hazırlanmış bir prototiptir.
 
 ## Amaç
 
@@ -22,10 +22,8 @@ Bunlar öğrenme ve iş akışı denemeleridir. Anahtar sözcük eşleşmesi, mo
 
 - Kullanılan genom UCD10Xv1.1 referansıdır; Samandağ örneğine ait olduğu gösterilmemiştir.
 - Notebook’un önceden kaydedilmiş çıktısında Türkiye sorgusundan gelen `WZN32304.1` kaydı Rubisco büyük alt birimi olarak açıklanır. Bu kayıt kapsaisin biyosentez enzimi değildir; Samandağ’a özgü kapsaisin bulgusu olarak yorumlanmamalıdır.
-- Önceki sürümde “Pun1 benzerliği (%)” adıyla verilen değerler gerçek yüzde dizi özdeşliği olarak doğrulanmış değildir. Bu yüzden doğrulanmış benzerlik sonucu gibi kullanılmamalıdır.
 - Notebook’taki aday listeleri, enzim işlevi ve tür/örnek kökeni için deneysel doğrulama yapılmamıştır.
 - ColabFold girdisi hazırlamak, yapı tahmini çalıştırıldığı veya yapının doğrulandığı anlamına gelmez.
-- NCBI/UniProt kayıtları ve sorgu sonuçları zamanla değişebilir; tekrar çalıştırıldığında farklı sonuç alınabilir.
 
 ## Çalıştırma
 
