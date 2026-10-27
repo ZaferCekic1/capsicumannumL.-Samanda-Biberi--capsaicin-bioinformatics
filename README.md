@@ -1,71 +1,50 @@
-# 🌶️ *Capsicum annuum* (Samandağ Biberi) Kapsaisin Biyosentez Yolağı ve Pun1 Enzim Analizi
+# 🌶️ *Capsicum annuum* ve kapsaisin biyosentezi: keşif amaçlı biyoinformatik denemesi
 
-Bu proje, **NCBI RefSeq** (*Capsicum annuum* `GCF_002878395.1` – UCD10Xv1.1) tam referans genomu üzerinden biberlerde acılık maddesi olan **kapsaisin** ve **dihidrokapsaisin** biyosentezinden sorumlu gen/protein dizilerini izole etmek, **BAHD açiltransferaz (`HXXXD` ve `DFGWG`)** katalitik motifleriyle gerçek **Kapsaisin Sentaz (`Pun1` / `AT3`)** enzimlerini doğrulamak ve **ColabFold / AlphaFold2** ile 3 boyutlu protein yapı tahmini için girdi setleri oluşturmak amacıyla geliştirilmiş uçtan uca bir biyoinformatik iş akışıdır.
+> **Çalışmanın niteliği:** Bu depo bir bilimsel araştırma yayını, doğrulanmış analiz veya Samandağ biberine ait deneysel/genomik bulgu sunmaz. Biyoinformatik araçlarını denemek ve olası bir iş akışını öğrenmek için hazırlanmış bir prototiptir. Notebook çıktıları yeniden üretilip doğrulanmadıkça sonuç olarak değerlendirilmemelidir.
 
----
+## Amaç
 
-## 📌 Proje Özeti ve İş Akışı (Pipeline)
+Bu denemede *Capsicum annuum* için NCBI RefSeq `GCF_002878395.1` (UCD10Xv1.1) referans genomu kullanılarak anotasyonlarda kapsaisin biyosenteziyle ilişkili adları arama, protein dizilerini motif ve hizalama ile inceleme ve seçilmiş protein dizilerini ColabFold Batch biçimine hazırlama adımları bir Jupyter/Colab notebook’unda bir araya getirildi.
 
-1. **Tam Referans Genomun İndirilmesi (NCBI Datasets CLI)**
-   * *Capsicum annuum* (`GCF_002878395.1`) referans genomu (~3.1 GB `.fna`), anotasyon (`.gff3`), kodlayan DNA dizileri (`cds_from_genomic.fna` – 79.7 MB) ve protein dizileri (`protein.faa` – 25.3 MB) indirilir.
-2. **Kapsaisin Yolağı Aday Dizilerinin Filtrelenmesi**
-   * Tam genomdaki protein ve CDS kayıtları taranarak kapsaisin biyosentez yolağıyla ilişkili **993 aday CDS** ve **993 aday protein** dizisi ayıklanır.
-3. **Katalitik Motif (`HXXXD` & `DFGWG`) ve Global Sekans Hizalaması ile `Pun1` İzolasyonu**
-   * İsim benzerliği nedeniyle gelen `At3g`, `GPAT3`, `LPAT3`, `STAT3` gibi yalancı pozitifler (false positives) elenir.
-   * Doğrulanmış aktif *Capsicum annuum* Kapsaisin Sentaz referans proteini (**`AAV66311.1`**, 440 aa) NCBI Entrez üzerinden çekilir.
-   * **Uzunluk filtresi (`380–480 aa`)**, **BAHD ailesi katalitik motifleri (`HXXXD` ve `DFGWG`)** ve **`PairwiseAligner` global sekans hizalaması** birleştirilerek gerçek aktif Kapsaisin Sentaz adayları ve 7 çekirdek yolak enzimi izole edilir.
-4. **Türkiye / Samandağ Kaynaklı Kayıtların Sorgulanması**
-   * NCBI Entrez API ile Türkiye menşeli *Capsicum annuum* kayıtları (`WZN32304.1`) taranır ve FASTA formatında dışa aktarılır.
-5. **ColabFold / AlphaFold2 3B Yapı Tahmini Girdi Hazırlığı**
-   * Fenilpropanoid ve kapsaisin sentez basamaklarındaki 5 anahtar enzim (`PAL`, `C4H`, `C3H`, `CAOMT`, `CS_AT3`) için nükleotid-protein çevirisi (`translate_cds` – 3 ORF okuma çerçevesi) ve **ColabFold Batch** girdi dosyası (`colabfold_batch_input.csv`) otomatik olarak üretilir.
+Bu referans genom Samandağ’dan alınmış bir örnek olarak tanımlanmamıştır. Dolayısıyla akış, Samandağ biberine özgü bir genom veya kapsaisin miktarı analizi değildir.
 
----
+## Notebook’ta neler deneniyor?
 
-## 🧬 Öne Çıkan Bulgular: Kapsaisin Sentaz (`Pun1`) Adayları
+1. NCBI Datasets CLI ile referans genom paketini indirme.
+2. Anotasyon açıklamalarındaki anahtar sözcüklere göre aday CDS ve protein kayıtlarını seçme.
+3. Aday proteinlerde BAHD ailesiyle ilişkilendirilen motifleri arama ve bir referans diziyle hizalama denemesi.
+4. NCBI Protein veritabanında Türkiye ile ilişkili *Capsicum annuum* kayıtlarını sorgulama.
+5. Seçilmiş protein dizilerinden ColabFold Batch girdisi hazırlama.
 
-993 aday protein içerisinden hem **`HXXXD`** hem de **`DFGWG`** katalitik motiflerini eksiksiz taşıyan ve kanonik `AAV66311.1` referansıyla en yüksek dizi benzerliğini gösteren aktif açiltransferazlar:
+Bunlar öğrenme ve iş akışı denemeleridir. Anahtar sözcük eşleşmesi, motif bulunması veya otomatik hizalama tek başına bir enzimin işlevini doğrulamaz.
 
-| Protein ID | Uzunluk (aa) | Pun1 Benzerlik (%) | `HXXXD` Motifi | `DFGWG` Motifi | Açıklama |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **`NP_001311698.1`** | 440 | **99.55%** | `HKIGD` (Poz: 169) | `DFGWG` (Poz: 384) | acyltransferase Pun1 [*Capsicum annuum*] |
-| **`XP_016560262.2`** | 459 | **80.61%** | `HKIGD` (Poz: 186) | `DFGWG` (Poz: 403) | acyltransferase Pun1 [*Capsicum annuum*] |
+## Bilinen sınırlamalar
 
----
+- Kullanılan genom UCD10Xv1.1 referansıdır; Samandağ örneğine ait olduğu gösterilmemiştir.
+- Notebook’un önceden kaydedilmiş çıktısında Türkiye sorgusundan gelen `WZN32304.1` kaydı Rubisco büyük alt birimi olarak açıklanır. Bu kayıt kapsaisin biyosentez enzimi değildir; Samandağ’a özgü kapsaisin bulgusu olarak yorumlanmamalıdır.
+- Önceki sürümde “Pun1 benzerliği (%)” adıyla verilen değerler gerçek yüzde dizi özdeşliği olarak doğrulanmış değildir. Bu yüzden doğrulanmış benzerlik sonucu gibi kullanılmamalıdır.
+- Notebook’taki aday listeleri, enzim işlevi ve tür/örnek kökeni için deneysel doğrulama yapılmamıştır.
+- ColabFold girdisi hazırlamak, yapı tahmini çalıştırıldığı veya yapının doğrulandığı anlamına gelmez.
+- NCBI/UniProt kayıtları ve sorgu sonuçları zamanla değişebilir; tekrar çalıştırıldığında farklı sonuç alınabilir.
 
-## 🧪 Hedeflenen Biyosentez Yolağı Enzimleri
+## Çalıştırma
 
-| Kısaltma | Enzim Adı | Biyosentez Rolü / UniProt Referansı |
-| :--- | :--- | :--- |
-| **`Pun1` / `CS_AT3`** | Kapsaisin Sentaz (Açiltransferaz) | Vanililamin ile 8-metil-6-nonenoil-CoA kondenzasyonu (`D2Y3X2` / `AAV66311.1`) |
-| **`PAL`** | Fenilalanin Amonyak Liyaz | Fenilpropanoid yolağı başlangıç basamağı (`B5LAW0`) |
-| **`C4H`** | Sinamik Asit 4-Hidroksilaz | *p*-Kumarik asit sentezi (`Q9FQY6`) |
-| **`C3H`** | *p*-Kumarik Asit 3-Hidroksilaz | Kafeik asit oluşumu (`B5LAT7`) |
-| **`CAOMT` / `COMT`** | Kafeik Asit *O*-Metiltransferaz | Ferulik asit dönüşümü (`Q9FQY8`) |
-| **`pAMT`** | Vanilin Aminotransferaz | Vanilindan vanililamin sentezi |
-| **`KasI` / `FatA` / `BCAT`** | Ketoaçil-ACP Sentaz / Tiyoesteraz / BCAT | Dallı zincirli yağ asidi yolağı enzimleri |
+Notebook’u Google Colab veya Jupyter ortamında hücre sırasıyla çalıştırmak üzere tasarlanmıştır. İlk hücreler Colab/Linux komutları kullanır; yerel Windows ortamında doğrudan çalışmayabilir. Genom paketi büyüktür ve indirme/işleme için yeterli disk alanı gerekir.
 
----
-
-## 🚀 Kurulum ve Kullanım
-
-### Gereksinimler
-Python 3.9+ ve aşağıdaki kütüphaneler gereklidir:
+Gerekli Python paketleri:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Çalıştırma
-* [`capsaicin_pathway_analysis.ipynb`](capsaicin_pathway_analysis.ipynb) dosyasını **Google Colab** veya **Jupyter Notebook / JupyterLab** ortamında açarak hücreleri sırasıyla çalıştırabilirsiniz.
-* Kendi lokal FASTA dizilerinizi analiz etmek için Notebook'un son bölümündeki `LOCAL_FASTA_FILE` değişkenine dosya yolunuzu tanımlayabilirsiniz.
+Kendi FASTA dizilerinizi denemek için notebook’un son bölümündeki `LOCAL_FASTA_FILE` değişkenini düzenleyebilirsiniz. Farklı FASTA kayıtlarının doğru enzim adıyla eşleştiğini ve dizilerin doğru okuma çerçevesinde olduğunu ayrıca kontrol edin.
 
----
+## Dosyalar
 
-## 📁 Proje Dosya Yapısı
+- `capsaicin_pathway_analysis.ipynb` — keşif amaçlı analiz ve ColabFold girdi hazırlama denemesi
+- `requirements.txt` — Python paketleri
+- `.gitignore` — geçici ve büyük genom verilerini dışarıda tutan kurallar
 
-```text
-├── capsaicin_pathway_analysis.ipynb   # Ana biyoinformatik analiz ve ColabFold hazırlık notebook'u
-├── requirements.txt                   # Python kütüphane bağımlılıkları
-├── .gitignore                         # Büyük genomik arşivleri ve geçici dosyaları hariç tutan yapılandırma
-└── README.md                          # Proje dokümantasyonu
-```
+## Sonraki adımlar
+
+Bu prototipi bilimsel bir analize dönüştürmek istenirse önce örnek kökeni ve veri erişim numaraları belgelenmeli; hizalama ölçütü gerçek yüzde özdeşlik olarak hesaplanmalı; adayların biyolojik anotasyonları kaynaklarla doğrulanmalı; ara ve nihai çıktılar yeniden üretilebilir biçimde sunulmalıdır.
