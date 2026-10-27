@@ -1,4 +1,4 @@
-# 🌶️ *Capsicum annuum* ve kapsaisin biyosentezi: keşif amaçlı biyoinformatik denemesi
+#  *Capsicum annuum* ve kapsaisin biyosentezi: keşif amaçlı biyoinformatik denemesi
 
 > **Çalışmanın niteliği:** Bu depo bir bilimsel araştırma yayını, doğrulanmış analiz veya Samandağ biberine ait deneysel/genomik bulgu sunmaz. Biyoinformatik araçlarını denemek ve olası bir iş akışını öğrenmek için hazırlanmış bir prototiptir. Notebook çıktıları yeniden üretilip doğrulanmadıkça sonuç olarak değerlendirilmemelidir.
 
